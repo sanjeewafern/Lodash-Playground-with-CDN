@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <title>Lodash Playground</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div>
+        <div class="title-text">
+            <h2>
+                <span class="title-backdrop">kavi's</span>
+                automobile world
+            </h2>
+        </div>
+        <div class="flex-container" id="demo">
+        </div>
+    </div>
+    <script>
+        const myCars = [
+            { id: 'aee602a2-1724-49fe-99a0-3efef4cb404a', name: 'Toyota', url: "./assets/toyota.jpg", visibility: true },
+            { id: '3f79d1c7-9d6d-4d0d-9ef2-91c3661f5a6d', name: 'Civic', url: "./assets/civic.jpg", visibility: false },
+            { id: '4588dcbd-c103-406a-baa5-092801f50319', name: 'Mahindra', url: "./assets/mahindra.jpg", visibility: true },
+            { id: 'f0349735-0677-4c4b-98fa-1d8e80ebfaf2', name: 'Lamborghini', url: "./assets/lamborghini.jpg", visibility: true },
+            { id: 'f0349735-0677-4c4b-98fa-1d8e80ebfag2', name: 'Alto', visibility: true },
+            { id: 'f0349735-0677-4c4b-98fa-2d8e80ebfag2', visibility: true },
+        ];
+
+        const getVisibleCars = () => {
+            return _.filter(myCars, ['visibility', true]);
+        };
+
+        const getTemplate = (car) => {
+            let name = _.get(car, 'name', 'Default name');
+            let url = _.get(car, 'url', './assets/default.png');
+            if (name && url) {
+                let theImage = `background-image: url(${url});`;
+                return `<div class="flex-item">
+                    <div class="internal-card" style="${theImage}">
+                    <div class="transparent-bg">
+                        <h3>${name}</h3>
+                    </div>
+                    </div>
+                </div>`;
+            }
+        };
+
+        const injectHtml = () => {
+            let theHtml = ``;
+            _.forEach(getVisibleCars(), function (car) {
+                theHtml = theHtml.concat(getTemplate(car));
+            });
+            document.getElementById("demo").innerHTML = theHtml;
+        };
+
+        injectHtml();
+    </script>
+</body>
+
+</html>
